@@ -9,7 +9,13 @@ let main = command { (filename:String) in
         text.enumerateLines { line, _ in 
             lines.append(line)
         }
-        print(lines)
+
+        // remove headers & summary
+        let details = lines.suffix(from: 2).prefix(while: { !$0.hasPrefix(" ") } )
+
+        details.forEach { line in
+            print(line)
+        }
     }
 
 }
