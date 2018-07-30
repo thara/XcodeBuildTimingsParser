@@ -17,5 +17,8 @@ let package = Package(
         .target(
             name: "XcodeBuildTimingsParser",
             dependencies: ["Commander", "Swiftline"]),
+        .testTarget(
+            name: "XcodeBuildTimingsParserTest",
+            dependencies: ["XcodeBuildTimingsParser"]),
     ]
 )
