@@ -10,7 +10,16 @@
 
 struct RecordParser {
 
-    func parse(line: String) -> Record {
+    let input: String
+    var pos = 0
+    var readPos = 0
+    var ch: Character? = nil
+
+    init(input: String) {
+        self.input = input
+    }
+
+    func parse() -> Record {
         let no = 0
         let real = 0.0
         let user = 0.0
@@ -21,4 +30,14 @@ struct RecordParser {
         return Record(no: no, real: real, user: user, sys: sys, pageIn: pageIn, pageOut: pageOut, commandString: cmd)
     }
 
+    mutating func readChar() {
+        if input.count <= readPos {
+            ch = nil
+        } else {
+            let i = input.index(input.startIndex, offsetBy: pos)
+            ch = input[i]
+        }
+        pos = readPos
+        readPos += 1
+    }
 }

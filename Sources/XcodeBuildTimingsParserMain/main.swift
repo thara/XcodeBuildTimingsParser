@@ -14,7 +14,10 @@ let main = command { (filename:String) in
         let details = lines.suffix(from: 2).prefix(while: { !$0.hasPrefix(" ") } )
 
         details.forEach { line in
-            print(line)
+            let no = line.prefix(while: {$0 != " "} )
+            print(no)
+            //line.suffix()
+            //print(line)
         }
     }
 
