@@ -1,5 +1,6 @@
 import XCTest
 @testable import XcodeBuildTimingsParser
+import Nimble
 
 class ParserTest: XCTestCase {
 
@@ -15,26 +16,26 @@ class ParserTest: XCTestCase {
     func testReadChar() {
         let sample = ""
         var sut = RecordParser(input: sample)
-        XCTAssertEqual(sut.pos, 0)
-        XCTAssertEqual(sut.readPos, 1)
-        XCTAssertEqual(sut.ch, nil)
+        expect(sut.pos).to(equal(0))
+        expect(sut.readPos).to(equal(1))
+        expect(sut.ch).to(beNil())
 
         sut = RecordParser(input: "abcdefg")
-        XCTAssertEqual(sut.pos, 0)
-        XCTAssertEqual(sut.readPos, 1)
-        XCTAssertEqual(sut.ch, "a")
+        expect(sut.pos).to(equal(0))
+        expect(sut.readPos).to(equal(1))
+        expect(sut.ch).to(equal("a"))
         sut.readChar()
-        XCTAssertEqual(sut.pos, 1)
-        XCTAssertEqual(sut.readPos, 2)
-        XCTAssertEqual(sut.ch, "b")
+        expect(sut.pos).to(equal(1))
+        expect(sut.readPos).to(equal(2))
+        expect(sut.ch).to(equal("b"))
     }
 
     func testPeekChar() {
         var sut = RecordParser(input: "abcdefg")
-        XCTAssertEqual(sut.peekChar(), "b")
+        expect(sut.peekChar()).to(equal("b"))
         sut.readChar()
-        XCTAssertEqual(sut.peekChar(), "c")
+        expect(sut.peekChar()).to(equal("c"))
         sut.readChar()
-        XCTAssertEqual(sut.peekChar(), "d")
+        expect(sut.peekChar()).to(equal("d"))
     }
 }
