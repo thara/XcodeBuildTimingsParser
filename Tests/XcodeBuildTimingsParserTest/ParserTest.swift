@@ -11,4 +11,30 @@ class ParserTest: XCTestCase {
 
         XCTAssertEqual(record.no, 0, "Invalid record no")
     }
+
+    func testReadChar() {
+        let sample = ""
+        var sut = RecordParser(input: sample)
+        XCTAssertEqual(sut.pos, 0)
+        XCTAssertEqual(sut.readPos, 1)
+        XCTAssertEqual(sut.ch, nil)
+
+        sut = RecordParser(input: "abcdefg")
+        XCTAssertEqual(sut.pos, 0)
+        XCTAssertEqual(sut.readPos, 1)
+        XCTAssertEqual(sut.ch, "a")
+        sut.readChar()
+        XCTAssertEqual(sut.pos, 1)
+        XCTAssertEqual(sut.readPos, 2)
+        XCTAssertEqual(sut.ch, "b")
+    }
+
+    func testPeekChar() {
+        var sut = RecordParser(input: "abcdefg")
+        XCTAssertEqual(sut.peekChar(), "b")
+        sut.readChar()
+        XCTAssertEqual(sut.peekChar(), "c")
+        sut.readChar()
+        XCTAssertEqual(sut.peekChar(), "d")
+    }
 }

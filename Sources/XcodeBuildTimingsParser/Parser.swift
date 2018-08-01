@@ -17,6 +17,7 @@ struct RecordParser {
 
     init(input: String) {
         self.input = input
+        readChar()
     }
 
     func parse() -> Record {
@@ -34,10 +35,19 @@ struct RecordParser {
         if input.count <= readPos {
             ch = nil
         } else {
-            let i = input.index(input.startIndex, offsetBy: pos)
+            let i = input.index(input.startIndex, offsetBy: readPos)
             ch = input[i]
         }
         pos = readPos
         readPos += 1
+    }
+
+    func peekChar() -> Character? {
+        if input.count <= readPos {
+            return nil
+        } else {
+            let i = input.index(input.startIndex, offsetBy: readPos)
+            return input[i]
+        }
     }
 }
