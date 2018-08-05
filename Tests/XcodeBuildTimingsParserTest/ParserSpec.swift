@@ -62,5 +62,20 @@ class ParserSpec: QuickSpec {
                 }
             }
         }
+
+        describe("its isDigit") {
+            context("when a digit character is passed") {
+                for n: Character in ["0", "9"] {
+                    it("return True with #{n}") {
+                        expect(RecordParser.isDigit(n)).to(beTrue())
+                    }
+                }
+            }
+            context("when a non-digit character is passed") {
+                it("return False") {
+                    expect(RecordParser.isDigit("a")).to(beFalse())
+                }
+            }
+        }
     }
 }

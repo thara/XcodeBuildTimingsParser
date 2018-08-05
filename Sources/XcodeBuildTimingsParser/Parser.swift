@@ -50,4 +50,16 @@ struct RecordParser {
             return input[i]
         }
     }
+
+    mutating func skipWhitespace() {
+        if let s = ch {
+            if s == " " {
+                readChar()
+            }
+        }
+    }
+
+    static func isDigit(_ c: Character) -> Bool {
+        return "0"..."9" ~= c
+    }
 }
