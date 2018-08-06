@@ -77,5 +77,39 @@ class ParserSpec: QuickSpec {
                 }
             }
         }
+
+        describe("its skipStringOrWhiteSpace") {
+            it("skipStringOrWhiteSpace") {
+                let input = Array("000000 | TIME:     3.20r     5.06u     1.34s")
+                let pos = RecordParser.skipStringOrWhiteSpace(input: input, pos: 6)
+                expect(pos).to(equal(19))
+            }
+        }
+
+        describe("its parseRecordNo") {
+            it("parseRecordNo") {
+                let input = Array("00005555 00006666")
+                let (no, pos) = RecordParser.parseRecordNo(input: input)
+
+                expect(no).to(equal(5555))
+                expect(pos).to(equal(8))
+            }
+        }
+
+        describe("its parseCpuUsage") {
+            it("parseRecordNo") {
+                let input = Array("000000 | TIME:     3.20r     5.06u     1.34s")
+                var pos = 19
+                let (usage1, p) = RecordParser.parseCpuUsage(input: input, pos: pos)
+                expect(usage1).to(equal(3.2))
+                expect(p).to(equal(24))
+
+                pos = RecordParser.skipStringOrWhiteSpace(input: input, pos: p)
+
+                let (usage2, p2) = RecordParser.parseCpuUsage(input: input, pos: pos)
+                expect(usage2).to(equal(5.06))
+                expect(p2).to(equal(34))
+            }
+        }
     }
 }

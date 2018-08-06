@@ -1,5 +1,4 @@
 
-
 struct Record {
     let no: Int
     let real: Double

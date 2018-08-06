@@ -62,4 +62,23 @@ struct RecordParser {
     static func isDigit(_ c: Character) -> Bool {
         return "0"..."9" ~= c
     }
+
+    static func isDecimal(_ c: Character) -> Bool {
+        return c == "." || "0"..."9" ~= c
+    }
+
+    static func parseRecordNo(input: [Character]) -> (Int?, Int) {
+        let s = input.prefix(while: { isDigit($0) })
+        return (Int(String(s)), s.count)
+    }
+
+    static func parseCpuUsage(input: [Character], pos: Int) -> (Double?, Int) {
+        let s = input.suffix(from: pos).prefix(while: { isDecimal($0) })
+        return (Double(String(s)), pos + s.count + 1)
+    }
+
+    static func skipStringOrWhiteSpace(input: [Character], pos: Int) -> Int {
+        let s = input.suffix(from: pos).prefix(while: { !isDecimal($0) })
+        return pos + s.count
+    }
 }
