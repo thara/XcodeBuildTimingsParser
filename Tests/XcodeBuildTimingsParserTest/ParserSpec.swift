@@ -111,5 +111,21 @@ class ParserSpec: QuickSpec {
                 expect(p2).to(equal(34))
             }
         }
+
+        describe("its parsePage") {
+            it("parsePage") {
+                let input = Array(" 5.06u     1.34s      31 /      0   CompileSwiftSources")
+                var pos = 22
+                let (page1, p1) = RecordParser.parsePage(input: input, pos: pos)
+                expect(page1).to(equal(31))
+                expect(p1).to(equal(24))
+
+                pos = RecordParser.skipStringOrWhiteSpace(input: input, pos: p1)
+
+                let (usage2, p2) = RecordParser.parsePage(input: input, pos: pos)
+                expect(usage2).to(equal(0))
+                expect(p2).to(equal(33))
+            }
+        }
     }
 }

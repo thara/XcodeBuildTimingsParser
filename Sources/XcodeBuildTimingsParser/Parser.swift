@@ -77,6 +77,11 @@ struct RecordParser {
         return (Double(String(s)), pos + s.count + 1)
     }
 
+    static func parsePage(input: [Character], pos: Int) -> (Int?, Int) {
+        let s = input.suffix(from: pos).prefix(while: { isDigit($0) })
+        return (Int(String(s)), pos + s.count)
+    }
+
     static func skipStringOrWhiteSpace(input: [Character], pos: Int) -> Int {
         let s = input.suffix(from: pos).prefix(while: { !isDecimal($0) })
         return pos + s.count
