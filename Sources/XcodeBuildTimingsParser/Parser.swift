@@ -82,6 +82,11 @@ struct RecordParser {
         return (Int(String(s)), pos + s.count)
     }
 
+    static func parseCommandString(input: [Character], pos: Int) -> (String, Int) {
+        let s = input.suffix(from: pos)
+        return (String(s), pos + s.count)
+    }
+
     static func skipStringOrWhiteSpace(input: [Character], pos: Int) -> Int {
         let s = input.suffix(from: pos).prefix(while: { !isDecimal($0) })
         return pos + s.count

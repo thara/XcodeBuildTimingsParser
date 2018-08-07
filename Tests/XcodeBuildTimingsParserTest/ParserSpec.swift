@@ -127,5 +127,15 @@ class ParserSpec: QuickSpec {
                 expect(p2).to(equal(33))
             }
         }
+
+        describe("its parseCommandString") {
+            it("parseCommandString") {
+                let input = Array("31 /      0   CompileSwiftSources normal armv7 com.apple.xcode.tools.swift.compiler")
+                let pos = 14
+                let (string, p1) = RecordParser.parseCommandString(input: input, pos: pos)
+                expect(string).to(equal("CompileSwiftSources normal armv7 com.apple.xcode.tools.swift.compiler"))
+                expect(p1).to(equal(input.count))
+            }
+        }
     }
 }
