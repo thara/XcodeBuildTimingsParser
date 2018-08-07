@@ -20,15 +20,45 @@ struct RecordParser {
         readChar()
     }
 
-    func parse() -> Record {
-        let no = 0
-        let real = 0.0
-        let user = 0.0
-        let sys = 0.0
-        let pageIn = 0
-        let pageOut = 0
-        let cmd = "sample"
-        return Record(no: no, real: real, user: user, sys: sys, pageIn: pageIn, pageOut: pageOut, commandString: cmd)
+    static func parse(input: String) -> Record? {
+        let line = Array(input)
+        var pos = 0
+
+        let no: Int?
+        (no, pos) = parseRecordNo(input: line)
+        if no == nil { return nil }
+
+        pos = skipStringOrWhiteSpace(input: line, pos: pos)
+
+        let real: Double?
+        (real, pos) = parseCpuUsage(input: line, pos: pos)
+        pos = skipStringOrWhiteSpace(input: line, pos: pos)
+        if real == nil { return nil }
+
+        let user: Double?
+        (user, pos) = parseCpuUsage(input: line, pos: pos)
+        pos = skipStringOrWhiteSpace(input: line, pos: pos)
+        if user == nil { return nil }
+
+        let sys: Double?
+        (sys, pos) = parseCpuUsage(input: line, pos: pos)
+        pos = skipStringOrWhiteSpace(input: line, pos: pos)
+        if sys == nil { return nil }
+
+        let pageIn: Int?
+        (pageIn, pos) = parsePage(input: line, pos: pos)
+        if pageIn == nil { return nil }
+
+        pos = skipStringOrWhiteSpace(input: line, pos: pos)
+        let pageOut: Int?
+        (pageOut, pos) = parsePage(input: line, pos: pos)
+        if pageOut == nil { return nil }
+
+        pos = skipWhiteSpace(input: line, pos: pos)
+        let cmd: String
+        (cmd, pos) = parseCommandString(input: line, pos: pos)
+
+        return Record(no: no!, real: real!, user: user!, sys: sys!, pageIn: pageIn!, pageOut: pageOut!, commandString: cmd)
     }
 
     mutating func readChar() {
@@ -48,14 +78,6 @@ struct RecordParser {
         } else {
             let i = input.index(input.startIndex, offsetBy: readPos)
             return input[i]
-        }
-    }
-
-    mutating func skipWhitespace() {
-        if let s = ch {
-            if s == " " {
-                readChar()
-            }
         }
     }
 
@@ -89,6 +111,11 @@ struct RecordParser {
 
     static func skipStringOrWhiteSpace(input: [Character], pos: Int) -> Int {
         let s = input.suffix(from: pos).prefix(while: { !isDecimal($0) })
+        return pos + s.count
+    }
+
+    static func skipWhiteSpace(input: [Character], pos: Int) -> Int {
+        let s = input.suffix(from: pos).prefix(while: { $0 == " " })
         return pos + s.count
     }
 }

@@ -137,5 +137,22 @@ class ParserSpec: QuickSpec {
                 expect(p1).to(equal(input.count))
             }
         }
+
+        describe("its parse") {
+            it("parse") {
+                let line = "000000 | TIME:     3.20r     5.06u     1.34s      31 /      9   CompileSwiftSources normal armv7 com.apple.xcode.tools.swift.compiler"
+                if let record = RecordParser.parse(input: line) {
+                    expect(record.no).to(equal(0))
+                    expect(record.real).to(equal(3.2))
+                    expect(record.user).to(equal(5.06))
+                    expect(record.sys).to(equal(1.34))
+                    expect(record.pageIn).to(equal(31))
+                    expect(record.pageOut).to(equal(9))
+                    expect(record.commandString).to(equal("CompileSwiftSources normal armv7 com.apple.xcode.tools.swift.compiler"))
+                } else {
+                    fail()
+                }
+            }
+        }
     }
 }
