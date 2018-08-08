@@ -1,7 +1,7 @@
 
-struct RecordParser {
+public struct RecordParser {
 
-    static func parse(input: String) -> Record? {
+    public static func parse(input: String) -> Record? {
         let line = Array(input)
         var pos = 0
 

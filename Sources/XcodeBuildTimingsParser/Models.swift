@@ -1,5 +1,5 @@
 
-struct Record {
+public struct Record : CustomStringConvertible {
     let no: Int
     let real: Double
     let user: Double
@@ -16,5 +16,9 @@ struct Record {
         self.pageIn = pageIn
         self.pageOut = pageOut
         self.commandString = commandString
+    }
+
+    public var description: String {
+        return "\(no),\(real),\(user),\(sys),\(pageIn),\(pageOut),\(commandString)"
     }
 }
