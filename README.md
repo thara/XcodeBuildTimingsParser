@@ -94,6 +94,10 @@ Options:
     --reverse [default: false] - Reverse ranking order
 ```
 
+## Licence
+
+[MIT](/LICENSE)
+
 ## Author
 
 [Tomochika Hara](https://github.com/thara)
