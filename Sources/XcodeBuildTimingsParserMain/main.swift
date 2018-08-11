@@ -33,13 +33,13 @@ func readRecordLines(_ filename: String) -> ArraySlice<String>? {
 Group {
     $0.command("dump",
         Argument<String>("filename"),
-        Option("sort", default: "No", description: "Sort column"),
+        Option("key", default: "No", description: "Record field as sort key"),
         Flag("reverse", description: "Reverse sort in order")
-    ) { (filename, sortField, reverse) in
+    ) { (filename, field, reverse) in
 
-        guard Record.fields.contains(sortField) else {
+        guard Record.fields.contains(field) else {
             var errStream = StandardErrorOutputStream()
-            print("Invalid field name : '\(sortField)'".f.Red, to: &errStream)
+            print("Invalid field name : '\(field)'".f.Red, to: &errStream)
             print("Choose one field from {\(recordFields)}".f.Red, to: &errStream)
             exit(EXIT_FAILURE)
         }
@@ -52,8 +52,35 @@ Group {
 
         print(recordFields)
 
-        let cmp = Record.compared(by: sortField)
+        let cmp = Record.compared(by: field)
         let recordComparator = reverse ? { !cmp($0, $1) } : cmp
+
+        recordLines.map { RecordParser.parse(input: $0) }.compactMap { $0 }.sorted(by: recordComparator).forEach { r in print("\(r)") }
+    }
+
+    $0.command("rank",
+        Argument<String>("filename"),
+        Option("key", default: "User", description: "Record field as rankinig key"),
+        Flag("reverse", description: "Reverse ranking order")
+    ) { (filename, field, reverse) in
+
+        guard Record.fields.contains(field) else {
+            var errStream = StandardErrorOutputStream()
+            print("Invalid field name : '\(field)'".f.Red, to: &errStream)
+            print("Choose one field from {\(recordFields)}".f.Red, to: &errStream)
+            exit(EXIT_FAILURE)
+        }
+
+        guard let recordLines = readRecordLines(filename) else {
+            var errStream = StandardErrorOutputStream()
+            print("Can not open \(filename).".f.Red, to: &errStream)
+            exit(EXIT_FAILURE)
+        }
+
+        print(recordFields)
+
+        let cmp = Record.compared(by: field)
+        let recordComparator = reverse ? cmp : { !cmp($0, $1) }
 
         recordLines.map { RecordParser.parse(input: $0) }.compactMap { $0 }.sorted(by: recordComparator).forEach { r in print("\(r)") }
     }
