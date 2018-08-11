@@ -7,7 +7,7 @@
 If `/tmp/xcode_build_timings` exists, Xcode save build timing profiles to the directory.   
 (I haven't been able to find the reference about the function in Apple's official documents.)   
 
-The profile is plain-text and have recorded times taken to complete per step like the following sample.   
+The profile is plain-text and have recorded times taken to complete per step like the following.   
 
 ```
          TIME:     REAL      USER       SYS   PAGEIN /    OUT   COMMAND STRING
