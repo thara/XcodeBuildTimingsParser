@@ -34,7 +34,8 @@ Group {
     $0.command("dump",
         Argument<String>("filename"),
         Option("key", default: "No", description: "Record field as sort key"),
-        Flag("reverse", description: "Reverse sort in order")
+        Flag("reverse", description: "Reverse sort in order"),
+        description: "Dump record lines"
     ) { (filename, field, reverse) in
 
         guard Record.fields.contains(field) else {
@@ -61,7 +62,8 @@ Group {
     $0.command("rank",
         Argument<String>("filename"),
         Option("key", default: "User", description: "Record field as rankinig key"),
-        Flag("reverse", description: "Reverse ranking order")
+        Flag("reverse", description: "Reverse ranking order"),
+        description: "Dump record lines as ranking"
     ) { (filename, field, reverse) in
 
         guard Record.fields.contains(field) else {
