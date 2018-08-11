@@ -30,6 +30,10 @@ func readRecordLines(_ filename: String) -> ArraySlice<String>? {
     return lines.suffix(from: 2).prefix(while: { !$0.hasPrefix(" ") } )
 }
 
+func dumpRecords(_ recordLines: ArraySlice<String>, comparator: (Record, Record) -> Bool) {
+    recordLines.map { RecordParser.parse(input: $0) }.compactMap { $0 }.sorted(by: comparator).forEach { r in print("\(r)") }
+}
+
 Group {
     $0.command("dump",
         Argument<String>("filename"),
@@ -54,9 +58,7 @@ Group {
         print(recordFields)
 
         let cmp = Record.compared(by: field)
-        let recordComparator = reverse ? { !cmp($0, $1) } : cmp
-
-        recordLines.map { RecordParser.parse(input: $0) }.compactMap { $0 }.sorted(by: recordComparator).forEach { r in print("\(r)") }
+        dumpRecords(recordLines, comparator: reverse ? { !cmp($0, $1) } : cmp)
     }
 
     $0.command("rank",
@@ -82,8 +84,6 @@ Group {
         print(recordFields)
 
         let cmp = Record.compared(by: field)
-        let recordComparator = reverse ? cmp : { !cmp($0, $1) }
-
-        recordLines.map { RecordParser.parse(input: $0) }.compactMap { $0 }.sorted(by: recordComparator).forEach { r in print("\(r)") }
+        dumpRecords(recordLines, comparator: reverse ? cmp : { !cmp($0, $1) })
     }
 }.run()
