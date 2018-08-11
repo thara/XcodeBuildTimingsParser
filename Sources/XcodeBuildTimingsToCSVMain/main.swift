@@ -1,7 +1,7 @@
 import Foundation.NSFileHandle
 import Commander
 import Swiftline
-import XcodeBuildTimingsParser
+import XcodeBuildTimingsToCSV
 
 struct StandardErrorOutputStream: TextOutputStream {
     let stderr = FileHandle.standardError

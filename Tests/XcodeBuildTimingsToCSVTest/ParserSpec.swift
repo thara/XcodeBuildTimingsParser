@@ -1,7 +1,7 @@
 import Nimble
 import Quick
 
-@testable import XcodeBuildTimingsParser
+@testable import XcodeBuildTimingsToCSV
 
 class ParserSpec: QuickSpec {
     override func spec() {

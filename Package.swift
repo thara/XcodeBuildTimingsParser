@@ -4,7 +4,10 @@
 import PackageDescription
 
 let package = Package(
-    name: "XcodeBuildTimingsParser",
+    name: "XcodeBuildTimingsToCSV",
+    products: [
+        .executable(name: "xcode_build_timings2csv", targets: ["XcodeBuildTimingsToCSVMain"]),
+    ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
@@ -17,13 +20,13 @@ let package = Package(
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
-            name: "XcodeBuildTimingsParser",
+            name: "XcodeBuildTimingsToCSV",
             dependencies: ["Commander", "Swiftline"]),
         .target(
-            name: "XcodeBuildTimingsParserMain",
-            dependencies: ["XcodeBuildTimingsParser"]),
+            name: "XcodeBuildTimingsToCSVMain",
+            dependencies: ["XcodeBuildTimingsToCSV"]),
         .testTarget(
-            name: "XcodeBuildTimingsParserTest",
-            dependencies: ["XcodeBuildTimingsParser", "Quick", "Nimble"]),
+            name: "XcodeBuildTimingsToCSVTest",
+            dependencies: ["XcodeBuildTimingsToCSV", "Quick", "Nimble"]),
     ]
 )
