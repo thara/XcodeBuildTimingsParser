@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "FootlessParser",
+        "repositoryURL": "https://github.com/kareman/FootlessParser",
+        "state": {
+          "branch": null,
+          "revision": "0f2f12232229d269333ba3d9c83c1a5b4adac457",
+          "version": "0.5.0"
+        }
+      },
+      {
         "package": "Nimble",
         "repositoryURL": "https://github.com/Quick/Nimble",
         "state": {
