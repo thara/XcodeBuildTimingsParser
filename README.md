@@ -41,7 +41,7 @@ Using `xcode_build_timings2csv`, your program can use the profile as csv.
 
 ## Requirement
 
-- Apple Swift version 4.1.2 later
+- Swift 5.1 later
 
 ## Install
 
