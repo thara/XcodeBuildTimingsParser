@@ -45,13 +45,19 @@ Using `xcode_build_timings2csv`, your program can use the profile as csv.
 
 ## Install
 
+Using the Swift Package Manager:
+
 ```bash
 $ git clone https://github.com/thara/xcode_build_timings2csv.git
 $ cd xcode_build_timings2csv
 $ swift build -c release
+$ cp -f .build/release/xcode_build_timings2csv /usr/local/bin/xcode_build_timings2csv
 ```
 
-Then, the executable binary `xcode_build_timings2csv` is generated in `./build/{your architecture}/release`
+Using [Mint](https://github.com/yonaskolb/mint):
+```bash
+$ mint install thara/xcode_build_timings2csv
+```
 
 ## Usage
 
