@@ -1,6 +1,7 @@
 import Foundation.NSFileHandle
 import Commander
-import Swiftline
+import Rainbow
+
 import XcodeBuildTimingsToCSV
 
 struct StandardErrorOutputStream: TextOutputStream {
@@ -44,14 +45,14 @@ Group {
 
         guard Record.fields.contains(field) else {
             var errStream = StandardErrorOutputStream()
-            print("Invalid field name : '\(field)'".f.Red, to: &errStream)
-            print("Choose one field from {\(recordFields)}".f.Red, to: &errStream)
+            print("Invalid field name : '\(field)'".red, to: &errStream)
+            print("Choose one field from {\(recordFields)}".red, to: &errStream)
             exit(EXIT_FAILURE)
         }
 
         guard let recordLines = readRecordLines(filename) else {
             var errStream = StandardErrorOutputStream()
-            print("Can not open \(filename).".f.Red, to: &errStream)
+            print("Can not open \(filename).".red, to: &errStream)
             exit(EXIT_FAILURE)
         }
 
@@ -70,14 +71,14 @@ Group {
 
         guard Record.fields.contains(field) else {
             var errStream = StandardErrorOutputStream()
-            print("Invalid field name : '\(field)'".f.Red, to: &errStream)
-            print("Choose one field from {\(recordFields)}".f.Red, to: &errStream)
+            print("Invalid field name : '\(field)'".red, to: &errStream)
+            print("Choose one field from {\(recordFields)}".red, to: &errStream)
             exit(EXIT_FAILURE)
         }
 
         guard let recordLines = readRecordLines(filename) else {
             var errStream = StandardErrorOutputStream()
-            print("Can not open \(filename).".f.Red, to: &errStream)
+            print("Can not open \(filename).".red, to: &errStream)
             exit(EXIT_FAILURE)
         }
 
